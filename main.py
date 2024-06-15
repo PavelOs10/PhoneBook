@@ -1,4 +1,22 @@
 import time
+
+def load_contacts(filename):
+    contacts = []
+    try:
+        with open(filename, 'r') as file:
+            for line in file:
+                name, phone = line.strip().split(',')
+                contacts.append({"name": name, "phone": phone})
+    except FileNotFoundError:
+        pass
+    return contacts
+
+def save_contacts(filename, contacts):
+    with open(filename, 'w') as file:
+        for contact in contacts:
+            file.write(f"{contact['name']},{contact['phone']}\n")
+    print("Контакты успешно сохранены в файл.")
+
 def main_menu():
     print("1. Добавить контакт")
     print("2. Удалить контакт")
@@ -12,8 +30,8 @@ def main_menu():
     if choice == "1":
         name = input("Введите имя контакта: ")
         phone = input("Введите телефонный номер: ")
-        print(f"Контакт {name} успешно добавлен!")
         add_contact(contacts, name, phone)
+        print(f"Контакт {name} успешно добавлен!")
     elif choice == "2":
         print_contacts(contacts)
         name = input("Введите имя контакта для удаления: ")
@@ -30,25 +48,26 @@ def main_menu():
     elif choice == "5":
         print("Программа телефонный справочник, версия 1.0")
         print("Написал студент GeekBrains: Павел О.")
-        print("Преводаватель: Сердюк С.С.")
-        
+        print("Преподаватель: Сердюк С.С.")
     elif choice == "6":
         print("Выход из программы.")
         return
     else:
         print("Неверный выбор, попробуйте снова.")
+
     time.sleep(1)
     main_menu()
 
 def add_contact(contacts, name, phone):
     contacts.append({"name": name, "phone": phone})
-    print(contacts)
+    save_contacts(filename, contacts)
 
 def remove_contact(contacts, name):
     for contact in contacts:
         if contact["name"] == name:
-            print(f"Контакт {name} успешно удален")
             contacts.remove(contact)
+            save_contacts(filename, contacts)
+            print(f"Контакт {name} успешно удален")
             return
     print("Контакт не найден.")
 
@@ -74,5 +93,7 @@ def print_contacts(contacts):
         print("Телефонная книга пуста.")
 
 if __name__ == "__main__":
-    contacts = []
+    filename = "contacts.txt"
+    contacts = load_contacts(filename)
+    print("Контакты загружены из файла.")
     main_menu()
