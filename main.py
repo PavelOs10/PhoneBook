@@ -23,8 +23,9 @@ def main_menu():
         print("2. Удалить контакт")
         print("3. Поиск контакта")
         print("4. Отобразить телефонную книгу")
-        print("5. О программе")
-        print("6. Выход из программы")
+        print("5. Изменить номер контакта")
+        print("6. О программе")
+        print("7. Выход из программы")
 
         choice = input("Выберите опцию: ")
 
@@ -47,10 +48,14 @@ def main_menu():
         elif choice == "4":
             display_contacts(contacts)
         elif choice == "5":
+            name = input("Введите имя контакта для изменения номера: ")
+            new_phone = input("Введите новый телефонный номер: ")
+            update_contact(contacts, name, new_phone)
+        elif choice == "6":
             print("Программа телефонный справочник, версия 1.0")
             print("Написал студент GeekBrains: Павел О.")
             print("Преподаватель: Сердюк С.С.")
-        elif choice == "6":
+        elif choice == "7":
             print("Выход из программы.")
             break
         else:
@@ -76,6 +81,15 @@ def find_contact(contacts, name):
         if contact["name"] == name:
             return contact
     return None
+
+def update_contact(contacts, name, new_phone):
+    for contact in contacts:
+        if contact["name"] == name:
+            contact["phone"] = new_phone
+            save_contacts(filename, contacts)
+            print(f"Номер телефона контакта {name} успешно обновлен")
+            return
+    print("Контакт не найден.")
 
 def display_contacts(contacts):
     if contacts:
