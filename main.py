@@ -26,8 +26,8 @@ def sort_contacts(contacts, sort_by='name', reverse=False):
     return contacts
 
 def main_menu(stdscr):
-    curses.curs_set(0)  # Hide the cursor
-    stdscr.nodelay(0)  # Set blocking mode
+    curses.curs_set(0)  
+    stdscr.nodelay(0)  
     while True:
         stdscr.clear()
         stdscr.border(0)
@@ -83,7 +83,7 @@ def sort_contacts_ui(stdscr):
     reverse = True if direction == ord('4') else False
 
     sort_contacts(contacts, sort_by, reverse)
-    display_contacts_ui(stdscr)  # Показываем отсортированный список контактов
+    display_contacts_ui(stdscr)  
 
 def display_contacts_ui(stdscr):
     stdscr.clear()
@@ -93,7 +93,6 @@ def display_contacts_ui(stdscr):
     stdscr.refresh()
     stdscr.getch()
 
-# Другие функции UI (add_contact_ui, remove_contact_ui, search_contact_ui, update_contact_ui, export_contacts_ui, about_program_ui) остаются без изменений
 
 def display_contacts(stdscr, contacts):
     if contacts:
