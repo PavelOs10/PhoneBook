@@ -25,8 +25,8 @@ def export_contacts_to_file(filename, contacts):
     print(f"Контакты успешно выгружены в файл {filename}")
 
 def main_menu(stdscr):
-    curses.curs_set(0)  # Hide the cursor
-    stdscr.nodelay(0)  # Set blocking mode
+    curses.curs_set(0)  
+    stdscr.nodelay(0)  
     while True:
         stdscr.clear()
         stdscr.border(0)
